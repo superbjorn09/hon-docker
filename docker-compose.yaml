@@ -1,0 +1,28 @@
+version: "3"
+services:
+  hon:
+    image: superbjorn09/kongor:latest
+    container_name: kongor_online
+    volumes:
+      - hondata_filebeat:/etc/filebeat
+      - hondata_logs:/root/Heroes of Newerth x64/game
+      - hondata_metricbeat:/etc/metricbeat
+      - hondata_proxy:/app/drive_c/users/root/AppData/Roaming/HonProxyManager
+    restart: unless-stopped
+    ports:
+      - "${port_proxy_start}-${port_proxy_end}:${port_proxy_start}-${port_proxy_end}/udp"
+    environment:
+      - commands=${commands}
+      - metricbeat=${use_metricbeat}
+      - ping_port=${port_proxy_start}
+      - proxyconf=count=${count}\nip=${ip}\nstartport=${startport}\nstartvoicePort=${startvoiceport}\nregion=${proxy_region}
+      - _name=${server_name}
+      - _region=${region}
+      - _user=${username}
+      - _servers_per_core=${servers_per_core}
+
+volumes:
+  hondata_filebeat:
+  hondata_logs:
+  hondata_metricbeat:
+  hondata_proxy:
