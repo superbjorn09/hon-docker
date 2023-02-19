@@ -20,9 +20,16 @@ services:
       - _region=${region}
       - _user=${username}
       - _servers_per_core=${servers_per_core}
+    networks:
+      - kongor_online_network
 
 volumes:
   hondata_filebeat:
   hondata_logs:
   hondata_metricbeat:
   hondata_proxy:
+
+networks:
+  kongor_online_network:
+    driver_opts:
+      com.docker.network.driver.mtu: 1450
