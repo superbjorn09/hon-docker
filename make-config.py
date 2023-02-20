@@ -56,6 +56,12 @@ class configGenerator():
         self.ip = requests.get("https://ifconfig.me").text
         self.auto_section = {}
 
+    def validate_port(self):
+        if 19000 <= self.starting_port <= 50000:
+            print("Choose a port between 19.000 - 50.000")
+            return
+        return True
+
     def write_sample_config(self):
         self.config["global"] = {"dummy" : "dont use" }
         self.config["credentials"] = {
