@@ -1,9 +1,6 @@
 # hon-docker
-Docker for Kongor Online
+Docker container for Project KONGOR server hosting.
 
-this is currently work in progress.
-you may install: docker-compose docker.io python3
+This is currently a work in progress. Requirements: docker-compose docker.io python3
 
-todo:
-run ./make-config.py
-It will tell you what to do.
+How To: Run ./make-config.py It will tell you what to do, so follow the instructions.
