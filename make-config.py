@@ -56,6 +56,10 @@ class configGenerator():
         self.ip = requests.get("https://ifconfig.me").text
         self.auto_section = {}
 
+    def _validate_ports(self):
+        return 19000 < self.starting_port < 50000
+
+
     def write_sample_config(self):
         self.config["global"] = {"dummy" : "dont use" }
         self.config["credentials"] = {
@@ -89,6 +93,10 @@ class configGenerator():
             self.config.write(f, space_around_delimiters=False)
 
     def calculate_ports(self):
+        if not self._validate_ports():
+            print("use a starting port between 19.000 - 50.000")
+            print("aborting..")
+            exit()
         self.port_ping = self.starting_port
         self.port_game_start = self.starting_port + 1
         self.port_game_end = self.starting_port + self.number_of_slaves
