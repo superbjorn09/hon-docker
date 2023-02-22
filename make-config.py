@@ -42,7 +42,7 @@ On the first run the script will generate client certificates for the stats webs
 You will be asked to provide the generated Certificate Signing Request -- client.csr
 Send it to him via Discord: https://discordapp.com/users/197967989964800000
 
-Frank will then send the client.pem back to you, which belongs to your specific docker container. 
+Frank will then send the client.pem back to you, which belongs to your specific docker container.
 You will then have to manually put the client.pem inside of your docker containers specified volume.
 
 The docker volume can be found by running: sudo docker inspect kongor_online | grep volume
@@ -174,5 +174,7 @@ class configGenerator():
         self.make_commands()
         self.make_proxy_conf()
 
-instance = configGenerator()
-instance.do_auto_config()
+
+if __name__ == '__main__':
+    instance = configGenerator()
+    instance.do_auto_config()
