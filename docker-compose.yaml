@@ -4,9 +4,7 @@ services:
     image: superbjorn09/kongor:latest
     container_name: kongor_online
     volumes:
-      - hondata_filebeat:/etc/filebeat
       - hondata_logs:/root/Heroes of Newerth x64/game
-      - hondata_metricbeat:/etc/metricbeat
       - hondata_proxy:/app/drive_c/users/root/AppData/Roaming/HonProxyManager
     restart: unless-stopped
     ports:
@@ -20,13 +18,17 @@ services:
       - _region=${region}
       - _user=${username}
       - _servers_per_core=${servers_per_core}
+      - _affinity=${servers_per_core}
+      - _admin=${username}
+      - _hf_cert_chain=/etc/monitoring/certs/honfigurator-chain.pem
+      - _hf_client_pem=/etc/monitoring/certs/filebeat.pem
+      - _hf_client_key=/etc/monitoring/certs/filebeat.key
+      - _game_log_path=/root/Heroes\ of\ Newerth\ x64/game/logs/*clog
     networks:
       - kongor_online_network
 
 volumes:
-  hondata_filebeat:
   hondata_logs:
-  hondata_metricbeat:
   hondata_proxy:
 
 networks:
