@@ -95,7 +95,14 @@ class configGenerator():
         with open(self.config_filename, "w") as f:
             self.config.write(f, space_around_delimiters=False)
 
+    def validate_ports(self):
+        return 19000 < self.starting_port < 50000
+
     def calculate_ports(self):
+        if not self.validate_ports():
+            print("use a starting port between 19.000 & 50.000")
+            print("Exiting...")
+            exit()
         self.port_ping = self.starting_port
         self.port_game_start = self.starting_port + 1
         self.port_game_end = self.starting_port + self.number_of_slaves
