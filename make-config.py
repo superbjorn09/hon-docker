@@ -6,35 +6,42 @@ from os.path import isfile
 
 first_run = '''
 --- INFO ---
-1. How to use it
-It seems that you re running this script for the first time.
-What do you have to do?
-Right now a template file is created --> .env
-Fill in the variables in th section credentials, network, server and optional.
-After you did this, run it again and the auto-section will populate with infos.
-
-2. How the networking works
-Ports are calculated like this:
+1. Getting Started
+----------------------------------------------------------
+It seems that you re running this script for the first time! Follow the below steps to get started.
+Right now a template file is created in your source directory called .env
+Edit it using your editor of choice (nano, vim etc) and fill in the variables in these sections:
+- credentials
+- network
+- server
+- optional.
+After you have done this, run ./make-config.py once more.
+The auto-section in the .env file will now populate with the proper information.
+2. How The Networking Works
+----------------------------------------------------------
+Port numbers are calculated like this:
 Number of ports = starting_port * 2 + 1
-Each server instance needs 1 game- & 1 voiceport.
-One additional port is used as ping port, so your instances can be found by auto-region.
-If you re just testing, set region to Newerth and do not forward the first port in your router.
-That will make your games only available for public games.
-Setting it to a specific region (like EU) will make it available for the EU-region.
-Forwarding the ping-port makes it available for tmm regardless of your region, since
-the latency is the parameter if somebody sees your server or not.
-
+Each server instance needs 1 game and 1 voice port. One additional port is used as ping port,
+so your instances can be found by auto-region. If you re just testing, set the region to NEWERTH
+and do not forward the first port in your router. This way, you can test your config and make
+sure that the server is running like it's supposed to, since doing it this way, only exposes
+the server to public games.
+Setting it to a specific region (like EU) will make it available for that region. If you were
+to forward the ping port in your router the server would become available for TMM regardless
+of which region you've chosen, since the latency is the only prerequisite for exposing your
+server for TMM's.
 3. Optional: use_metricbeat
-On the first run it will generate client certificates for the stats website made by Frank.
-You will be asked to provide the generated Certificate Signing Request - client.csr
+----------------------------------------------------------
+On the first run the script will generate client certificates for the stats website made by Frank.
+You will be asked to provide the generated Certificate Signing Request -- client.csr
 Send it to him via Discord: https://discordapp.com/users/197967989964800000
-Frank will send the client.pem back, which belongs to your docker volume.
-The docker volume can be found by: sudo docker inspect kongor_online | grep volume
-Certificates are stored in the filebeat volume.
+Frank will then send the client.pem back to you, which belongs to your specific docker container.
+You will then have to manually put the client.pem inside of your docker containers specified volume.
+The docker volume can be found by running: sudo docker inspect kongor_online | grep volume
+Your certificates are stored in the filebeat volume.
 NOTE: You need root rights for this.
 --- INFO END ---
 '''
-
 
 class configGenerator():
     def __init__(self):
